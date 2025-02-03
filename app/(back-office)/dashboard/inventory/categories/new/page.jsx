@@ -3,45 +3,51 @@ import FormHeader from "@/components/dashboard/FormHeader";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import TextareaInputs from "@/components/FormInputs/TextareaInputs";
 import TextInputs from "@/components/FormInputs/TextInputs";
-import { Plus, X } from "lucide-react";
-import Link from "next/link";
+import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function NewCategory() {
+
+export default function NewCategory({initialData={},isUpdate=false }) {
+const router=useRouter()
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
-  const [loading, setLoading] = useState(false);
-   async function onSubmit(data) {
-    console.log(data)
-    setLoading(true)
-    const baseUrl ="http://localhost3000"
-    try {
-      const response = await fetch (`${baseUrl}/api/categories`,{
-        method:"POST",
-        headers:{
-          "content-type":"application.json"
-        },
-        body:JSON.stringify(data)
-      })
-      if(response.ok){console.log(response)
-        setLoading(false)
-        reset()
-      }
-    reset(); 
-    } catch (error) {
-      setLoading(false)
-      console.log(error)
-    }
+  } = useForm({
+    defaultValues: initialData,
+  } );
+  function redirect(){
+    router.replace("/dashboard/inventory/categories")
   }
+  const [loading, setLoading] =useState(false);
+   async function onSubmit(data) {
+    console.log(initialData.id)
+    if(isUpdate){  
+      makePutRequest(
+       setLoading,
+       `api/categories/${initialData.id}`,
+       data,
+       "Category",  
+         redirect,
+       reset
+     )
+    }
+     else{
+      makePostRequest(
+        setLoading,
+        "api/categories",
+        data,
+        "Category",
+        reset
+      )   
+  }}
   return (
     <div>
       {/* Header */}
-      <FormHeader title="New Category" href="/dashboard/inventory/" />
+      <FormHeader title={isUpdate?"Update Category":"New Category"} href="/dashboard/inventory/categories" />
       {/* form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -61,9 +67,7 @@ export default function NewCategory() {
             register={register}
             errors={errors}/>
         </div>
-
-
-        <SubmitButton isLoading={loading} title="Category" />
+        <SubmitButton  isLoading={loading} title={isUpdate?"update Category":"New Category"} />
       </form>
     </div>
   );

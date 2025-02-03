@@ -3,45 +3,52 @@ import FormHeader from "@/components/dashboard/FormHeader";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import TextareaInputs from "@/components/FormInputs/TextareaInputs";
 import TextInputs from "@/components/FormInputs/TextInputs";
+import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
 import { Plus, X } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast"; 
 
-export default function NewUnits() {
+export default function NewBrand({ initialData = {}, isUpdate = false }) {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: initialData,
+  });
   const [loading, setLoading] = useState(false);
-   async function onSubmit(data) {
-    console.log(data)
-    setLoading(true)
-    const baseUrl ="http://localhost3000"
-    try {
-      const response = await fetch (`${baseUrl}/api/brands`,{
-        method:"POST",
-        headers:{
-          "content-type":"application.json"
-        },
-        body:JSON.stringify(data)
-      })
-      if(response.ok){console.log(response)
-        setLoading(false)
-        reset()
-      }
-    reset(); 
-    } catch (error) {
-      setLoading(false)
-      console.log(error)
+  function redirect() {
+    router.replace("/dashboard/inventory/brands");
+  }
+  async function onSubmit(data) {
+    console.log(data);
+    if (isUpdate) {
+      // update request
+      makePutRequest(
+        setLoading,
+        `api/brands/${initialData.id}`,
+        data,
+        "Brand",
+        redirect,
+        reset
+      );
+    } else {
+      makePostRequest(setLoading, "api/brands", data, "Brand", reset);
     }
   }
   return (
     <div>
       {/* Header */}
-      <FormHeader title="New Brands" href="/dashboard/inventory/" />
+      <FormHeader
+        title={isUpdate ? "Update Brand" : "New Brand"}
+        href="/dashboard/inventory/brands"
+      />
       {/* form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -56,13 +63,13 @@ export default function NewUnits() {
             errors={errors}
             className="w-full"
           />
-          
         </div>
 
-
-        <SubmitButton isLoading={loading} title="Brands" />
+        <SubmitButton
+          isLoading={loading}
+          title={isUpdate ? "Update Brand" : "New Brand"}
+        />
       </form>
     </div>
   );
 }
-

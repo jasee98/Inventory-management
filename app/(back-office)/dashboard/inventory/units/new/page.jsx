@@ -3,45 +3,56 @@ import FormHeader from "@/components/dashboard/FormHeader";
 import SubmitButton from "@/components/FormInputs/SubmitButton";
 import TextareaInputs from "@/components/FormInputs/TextareaInputs";
 import TextInputs from "@/components/FormInputs/TextInputs";
+import { makePostRequest, makePutRequest } from "@/lib/apiRequest";
 import { Plus, X } from "lucide-react";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
-export default function NewUnits() {
+export default function NewUnits({initialData={},isUpdate=false} ) {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues : initialData
+  }
+    
+  );
   const [loading, setLoading] = useState(false);
+  function redirect(){
+    router.push("/dashboard/inventory/units")
+
+  }
    async function onSubmit(data) {
     console.log(data)
     setLoading(true)
-    const baseUrl ="http://localhost3000"
-    try {
-      const response = await fetch (`${baseUrl}/api/units`,{
-        method:"POST",
-        headers:{
-          "content-type":"application.json"
-        },
-        body:JSON.stringify(data)
-      })
-      if(response.ok){console.log(response)
-        setLoading(false)
-        reset()
-      }
-    reset(); 
-    } catch (error) {
-      setLoading(false)
-      console.log(error)
-    }
+   if(isUpdate){
+     // update request
+     makePutRequest(
+      setLoading,
+      `api/units/${initialData.id}`,
+      data,
+      "Unit",  
+        redirect,
+      reset
+    );
+   }else{
+    makePostRequest(
+      setLoading,
+      "/api/units",
+      data,
+      "units",
+      reset
+    );
+   } 
   }
   return (
     <div>
       {/* Header */}
-      <FormHeader title="New Units" href="/dashboard/inventory/" />
+      <FormHeader title={isUpdate?"Update Unit":"New Unit"} href="/dashboard/inventory/units" />
       {/* form */}
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -58,7 +69,7 @@ export default function NewUnits() {
           />
           <TextInputs
             label="Unit Abbreviation"
-            name="title"
+            name="abbreviation"
             register={register}
             errors={errors}
             className="w-full"
@@ -67,7 +78,7 @@ export default function NewUnits() {
         </div>
 
 
-        <SubmitButton isLoading={loading} title="Units" />
+        <SubmitButton isLoading={loading} title={isUpdate?"Updated Unit":"New Unit"} />
       </form>
     </div>
   );

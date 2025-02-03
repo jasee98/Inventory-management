@@ -1,10 +1,16 @@
 "use client"
 import { Building2 } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 
 export default function HomeNavbar() {
+   const {data:session,status}=useSession()
+   if (status === "loading") {
+    return <p>Loading...</p>;
+  }
+  const username= session?.user?.name.toUpperCase();
     const pathname =usePathname()
     console.log(pathname)
 const navLinks=[
@@ -34,7 +40,7 @@ const navLinks=[
                 <Building2/>
             </div>
             <div className="flex flex-col"> 
-          <p className='text-slate-700 font-semibold'>Hello, JB WEBDEVELOPER</p>
+          <p className='text-slate-700 font-semibold'>Hello,{username}</p>
           <span className='text-sm '>Garat</span>
          </div>
 

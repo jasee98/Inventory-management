@@ -33,8 +33,8 @@ export default function SelectInput({
               defaultValue={""}
               >{options.map((option,i)=>{
                 return(
-                    <option key={i} value={option.value} >
-                        {option.label}
+                    <option key={i} value={option.id} >
+                        {option.title}
 
                     </option>
                 )

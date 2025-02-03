@@ -1,6 +1,6 @@
 import FixedHeader from '@/components/dashboard/FixedHeader'
 import OptionCard from '@/components/dashboard/OptionCard'
-import { Shirt,Boxes,Component,ScrollText, ComponentIcon } from 'lucide-react'
+import {  LayoutGrid, LayoutPanelTop, Slack, Warehouse, Scale, Diff, Factory } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -14,7 +14,7 @@ export default function inventory() {
       link:"/dashboard/inventory/items/new",
       linkTitle:"New Item",
       enabled:"true",
-      icon:Shirt,
+      icon:LayoutGrid,
 
     },
     {
@@ -23,7 +23,7 @@ export default function inventory() {
       link:"/dashboard/inventory/categories/new",
       linkTitle:"New category",
       enabled:"false",
-      icon:Boxes,
+      icon:LayoutPanelTop,
 
     },
     {
@@ -32,7 +32,7 @@ export default function inventory() {
       link:"/dashboard/inventory/brands/new",
       linkTitle:"New brand",
       enabled:"true",
-      icon:ScrollText,
+      icon:Slack,
 
     },
     {
@@ -41,7 +41,7 @@ export default function inventory() {
       link:"/dashboard/inventory/warehouse/new",
       linkTitle:"New warehouse",
       enabled:"true",
-      icon:ScrollText,
+      icon:Warehouse,
 
     },
     {
@@ -50,14 +50,32 @@ export default function inventory() {
       link:"/dashboard/inventory/units/new",
       linkTitle:"New units",
       enabled:"true",
-      icon:ComponentIcon,
+      icon:Scale,
+
+    },
+    {
+      title:"Inventory Adjustment",
+      description:"Transfer Stock from the main warehouse ",
+      link:"/dashboard/inventory/adjustments/new",
+      linkTitle:"New adjustments",
+      enabled:"true",
+      icon:Diff,
+
+    },
+    {
+      title:"Supplier",
+      description:"Tweak your item prices for specific contact or transactions ",
+      link:"/dashboard/inventory/supplier/new",
+      linkTitle:"New supplier",
+      enabled:"true",
+      icon:Factory,
 
     },
   ]
   return (
     <div>
       <FixedHeader newLink="/dashboard/inventory/items/New"/>
-        <div className="grid grid-col-1 lg:grid-cols-2 m-4 py-8 px-16 gap-6 ">
+        <div className="grid grid-col-1 lg:grid-cols-3 md:grid-cols-2 m-4 py-8 px-16 gap-6 ">
 
         {
           OptionCards.map((card,i)=>{
