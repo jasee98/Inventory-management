@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import Header from '@/components/dashboard/header'
+import Header from '@/components/dashboard/Header'
 import Sidebar from '@/components/dashboard/Sidebar'
 import { useSession } from 'next-auth/react';
 import Login from '../login/page';
