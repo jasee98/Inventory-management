@@ -40,7 +40,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="bg-violet-700 fixed top-0 right-0 w-full left-0 h-16 flex items-center justify-between px-16 text-slate-50 z-50">
+      <header className="bg-slate-900 fixed top-0 right-0 w-full left-0 h-16 flex items-center justify-between px-16 text-slate-50 z-50">
         <Link className="font-bold text-2xl md:text-4xl" href="/">
           Inventory 
         </Link>

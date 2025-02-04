@@ -1,26 +1,50 @@
 import Image from "next/image";
 // import { AiOutlineArrowDown } from "react-icons/ai";
-import ThemeLink from "./ThemeLink"
+import Mockup from "../public/Mockup.png";
+import ThemeLink from "./ThemeLink";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOption";
 export default function Hero() {
+  const session = getServerSession(authOptions);
   return (
-    <div className="bg-blue-700 grid grid-cols-1 md:grid-cols-2 py-8 md:py-16 px-4 md:px-16 text-slate-50 items-center gap-6">
-      <div className="flex flex-col space-y-8 items-start">
-        <h2 className="text-3xl md:text-4xl font-bold">
-          Free Invoice Generator - Invoice Maker
+    <div className="bg-gradient-to-b from-red-700 flex flex-col md:grid-cols-2 py-8 md:py-32 px-4 md:px-16 text-slate-50 items-center gap-6 h-full w-full">
+      <div className="flex flex-col space-y-8 items-center max-w-4xl mx-auto text-center">
+        <h2 className="text-3xl md:text-5xl font-bold">
+          Inventory management software designed for Indian businesses
         </h2>
         <p className="text-base md:text-xl">
-          Create, Manage, and Track, Recurring Invoices Download as PDF, Email
-          and Print Invoices
+          Manage orders. Track inventory. Handle GST billing. Oversee
+          warehouses. One inventory management software to run all your
+          inventory operations.
         </p>
-        <ThemeLink
-          className="bg-rose-600 hover:bg-rose-700 focus:ring-rose-300 "
-          title="View Dashboard"
-          href="/dashboard/home/overview"
-          icon={''}
-        />
+
+        <div className="py-4 flex space-x-4item-center">
+          {session ? (
+            <ThemeLink
+              className="bg-rose-600 hover:bg-rose-700 focus:ring-rose-300 "
+              title="View Dashboard"
+              href="/dashboard/home/overview"
+              icon={""}
+            />
+          ) : (
+            <ThemeLink
+              className="bg-rose-600 hover:bg-rose-700 focus:ring-rose-300 "
+              title="Access the Inventory System"
+              href="/dashboard/home/overview"
+              icon={""}
+             />
+          )}
+
+          <ThemeLink
+            className="bg-slate-50 hover:bg-slate-100 focus:ring-slate-300 text-slate-900  "
+            title="Explore Demo Account"
+            href="/dashboard/home/overview"
+            icon={""}
+          />
+        </div>
       </div>
       <div className="">
-        {/* <Image src={InvoiceImage} alt="invoice image" /> */}
+        <Image src={Mockup} alt="Inventory App" />
       </div>
     </div>
   );

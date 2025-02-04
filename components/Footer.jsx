@@ -1,57 +1,67 @@
-import React from 'react'
+import React from "react";
 
 export default function Footer() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[var(--font-geist-sans)]">
-      
-    <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-          <a
-            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              aria-hidden
-              src="/file.svg"
-              alt="File icon"
-              width={16}
-              height={16}
-            />
-            Learn
-          </a>
-          <a
-            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              aria-hidden
-              src="/window.svg"
-              alt="Window icon"
-              width={16}
-              height={16}
-            />
-            Examples
-          </a>
-          <a
-            className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-            href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              aria-hidden
-              src="/globe.svg"
-              alt="Globe icon"
-              width={16}
-              height={16}
-            />
-            Go to nextjs.org →
-          </a>
-        </footer>
-        </div>
-  )
-}
+    // <footer >
 
+    <footer className="p-4 bg-white md:p-8 lg:p-10 dark:bg-gray-800">
+      <div className="mx-auto max-w-screen-xl text-center">
+        <a
+          href="#"
+          className="flex justify-center items-center text-2xl font-semibold text-gray-900 dark:text-white"
+        >
+          Inventory
+        </a>
+        <p className="my-6 text-gray-500 dark:text-gray-400">
+          Manage orders. Track inventory. Handle GST billing. Oversee
+          warehouses. One inventory management software to run all your
+          inventory operations.This Was Made By Jaseela.
+        </p>
+        <ul className="flex flex-wrap justify-center items-center mb-6 text-gray-900 dark:text-white">
+          <li>
+            <a href="#" className="mr-4 hover:underline md:mr-6 ">
+              About
+            </a>
+          </li>
+          <li>
+            <a href="#" className="mr-4 hover:underline md:mr-6">
+              Premium
+            </a>
+          </li>
+          <li>
+            <a href="#" className="mr-4 hover:underline md:mr-6 ">
+              Campaigns
+            </a>
+          </li>
+          <li>
+            <a href="#" className="mr-4 hover:underline md:mr-6">
+              Blog
+            </a>
+          </li>
+          <li>
+            <a href="#" className="mr-4 hover:underline md:mr-6">
+              Affiliate Program
+            </a>
+          </li>
+          <li>
+            <a href="#" className="mr-4 hover:underline md:mr-6">
+              FAQs
+            </a>
+          </li>
+          <li>
+            <a href="#" className="mr-4 hover:underline md:mr-6">
+              Contact
+            </a>
+          </li>
+        </ul>
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">
+            © 2024-2025{''}
+            <a href="#"
+             className="hover:underline">
+                Inventory™</a>
+                . You are free to use the system for your personal and even commercial use .All Rights reserved.
+                </span>
+      </div>
+    </footer>
+  );
+}

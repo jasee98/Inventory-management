@@ -1,5 +1,8 @@
 //app/login/page.jsx
+"use client"
 import LoginForm from "@/components/auth/LoginForm";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 import React from "react";
 
 export default function Login() {
