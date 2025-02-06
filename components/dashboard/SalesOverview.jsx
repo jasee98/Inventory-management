@@ -3,48 +3,63 @@ import Link from "next/link";
 import React from "react";
 import SalesActivityCard from "./SalesActivityCard";
 import InventorySummaryCard from "./InventorySummaryCard";
+import { getData } from "@/lib/getData";
 
-export default function () {
+export default async function SalesOverview() {
+  const categoriesData = getData("categories");
+  const itemsData = getData("items");
+  const warehousesData = getData("warehouse");
+  const suppliersData = getData("suppliers");
+
+  // parallel fetching
+
+  const [categories,items, warehouses, suppliers] = await Promise.all([
+    categoriesData,
+    itemsData,  
+    warehousesData,
+    suppliersData,
+  ]);
+  const InventorySummary =warehouses.map((item,i)=>{
+    return{
+      title: item.title,
+      number: item.StockQty,
+
+    }
+  })
+  console.log(InventorySummary)
+
   const SalesActivity = [
     {
-      title: "To be Packed ",
-      number: "0",
+      title: "Category",
+      number: categories.length,
       unit: "Qty",
-      href: "#",
+      href: "/dashboard/inventory/categories",
       color: "text-blue-600",
     },
     {
-      title: "To be Shipped ",
-      number: "0",
+      title: "Items ",
+      number: items.length,
       unit: "pkgs",
-      href: "#",
+      href: "/dashboard/inventory/items",
       color: "text-red-600",
     },
     {
-      title: "To be Delivered ",
-      number: "0",
+      title: "Warehouses",
+      number: warehouses.length,
       unit: "pkgs",
-      href: "#",
+      href: "/dashboard/inventory/warehouse",
       color: "text-green-600",
     },
     {
-      title: "To be Invoiced ",
-      number: "0",
+      title: "Suppliers",
+      number: suppliers.length,
       unit: "Qty",
-      href: "#",
+      href: "/dashboard/inventory/suppliers",
       color: "text-orange-600",
     },
   ];
-  const InventorySummary = [
-    {
-      title: "Quantity in hand",
-      number: "10",
-    },
-    {
-      title: "Quantity received  ",
-      number: "0",
-    },
-  ];
+ 
+  
   return (
     <div className="bg-blue-50 border-b border-slate-300 p-8 grid grid-cols-12 gap-4 ">
       {/* sales activity */}
