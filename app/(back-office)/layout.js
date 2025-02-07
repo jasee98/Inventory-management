@@ -31,3 +31,5 @@ export default function Layout({children}) {
         </div>
   )
 }
+
+export const dynamic = "force-static"
